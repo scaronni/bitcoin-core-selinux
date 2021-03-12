@@ -1,12 +1,12 @@
 policy_module(bitcoin, 2.0)
 
-# Declarations
+require {
+    type tor_port_t;
+}
 
 type bitcoin_t;
 type bitcoin_exec_t;
 init_daemon_domain(bitcoin_t, bitcoin_exec_t)
-
-permissive bitcoin_t;
 
 type bitcoin_initrc_exec_t;
 init_script_file(bitcoin_initrc_exec_t)
@@ -22,8 +22,6 @@ files_type(bitcoin_var_run_t)
 
 type bitcoin_port_t;
 corenet_port(bitcoin_port_t)
-
-# bitcoin local policy
 
 allow bitcoin_t self:process { fork };
 
@@ -58,6 +56,11 @@ gen_require(`
     type bitcoin_port_t;
 ')
 allow bitcoin_t bitcoin_port_t:tcp_socket name_connect;
+
+gen_require(`
+    type tor_port_t;
+')
+allow bitcoin_t tor_port_t:tcp_socket name_connect;
 
 domain_use_interactive_fds(bitcoin_t)
 
