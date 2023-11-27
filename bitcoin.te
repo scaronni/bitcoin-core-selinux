@@ -74,8 +74,10 @@ files_read_etc_files(bitcoin_t)
 
 miscfiles_read_localization(bitcoin_t)
 
-#allow bitcoin_t bitcoin_exec_t:file execute_no_trans;
+allow init_t bitcoin_conf_t:file read;
+allow init_t bitcoin_t:process2 nnp_transition;
 allow bitcoin_t self:process setsched;
+
 corecmd_exec_bin(bitcoin_t)
 corenet_tcp_connect_http_port(bitcoin_t)
 dev_read_urand(bitcoin_t)
