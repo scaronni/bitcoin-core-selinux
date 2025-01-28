@@ -1,5 +1,5 @@
 /usr/bin/bitcoin(/.*)?      gen_context(system_u:object_r:bitcoin_exec_t,s0)
-/usr/sbin/bitcoind          gen_context(system_u:object_r:bitcoin_exec_t,s0)
+/usr/bin/bitcoind           gen_context(system_u:object_r:bitcoin_exec_t,s0)
 /etc/bitcoin(/.*)?          gen_context(system_u:object_r:bitcoin_conf_t,s0)
 /var/lib/bitcoin(/.*)?      gen_context(system_u:object_r:bitcoin_var_lib_t,s0)
 /var/log/bitcoin(/.*)?      gen_context(system_u:object_r:bitcoin_log_t,s0)
