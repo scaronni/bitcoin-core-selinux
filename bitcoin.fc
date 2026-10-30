@@ -6,3 +6,4 @@
 /var/lib/bitcoin(/.*)?      gen_context(system_u:object_r:bitcoin_var_lib_t,s0)
 /var/log/bitcoin(/.*)?      gen_context(system_u:object_r:bitcoin_log_t,s0)
 /run/bitcoind(/.*)?         gen_context(system_u:object_r:bitcoin_var_run_t,s0)
+/var/run/bitcoind(/.*)?     gen_context(system_u:object_r:bitcoin_var_run_t,s0)
