@@ -30,6 +30,9 @@ allow bitcoin_t self:process { fork };
 allow bitcoin_t self:fifo_file rw_fifo_file_perms;
 allow bitcoin_t self:unix_stream_socket create_stream_socket_perms;
 
+# The "bitcoin" wrapper (e.g. "bitcoin node", "bitcoin -m node") execs bitcoind or bitcoin-node in place, so the daemon must stay in the same domain.
+can_exec(bitcoin_t, bitcoin_exec_t)
+
 manage_dirs_pattern(bitcoin_t, bitcoin_conf_t, bitcoin_conf_t)
 manage_files_pattern(bitcoin_t, bitcoin_conf_t, bitcoin_conf_t)
 
@@ -39,6 +42,10 @@ files_var_lib_filetrans(bitcoin_t, bitcoin_var_lib_t, { dir file })
 
 manage_dirs_pattern(bitcoin_t, bitcoin_var_run_t, bitcoin_var_run_t)
 manage_files_pattern(bitcoin_t, bitcoin_var_run_t, bitcoin_var_run_t)
+
+# Multiprocess IPC sockets (bitcoin-node -ipcbind=unix[:path]), created in the data directory by default.
+manage_sock_files_pattern(bitcoin_t, bitcoin_var_lib_t, bitcoin_var_lib_t)
+manage_sock_files_pattern(bitcoin_t, bitcoin_var_run_t, bitcoin_var_run_t)
 
 manage_dirs_pattern(bitcoin_t, bitcoin_log_t, bitcoin_log_t)
 manage_files_pattern(bitcoin_t, bitcoin_log_t, bitcoin_log_t)

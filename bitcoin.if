@@ -39,6 +39,28 @@ interface(`bitcoin_initrc_domtrans',`
     init_labeled_script_domtrans($1, bitcoin_initrc_exec_t)
 ')
 
+########################################
+## <summary>
+##    Connect to bitcoin-node over its IPC unix
+##    domain stream socket.
+## </summary>
+## <param name="domain">
+##    <summary>
+##    Domain allowed access.
+##    </summary>
+## </param>
+#
+interface(`bitcoin_stream_connect',`
+    gen_require(`
+        type bitcoin_t, bitcoin_var_lib_t, bitcoin_var_run_t;
+    ')
+
+    files_search_var_lib($1)
+    files_search_pids($1)
+    stream_connect_pattern($1, bitcoin_var_lib_t, bitcoin_var_lib_t, bitcoin_t)
+    stream_connect_pattern($1, bitcoin_var_run_t, bitcoin_var_run_t, bitcoin_t)
+')
+
 
 ########################################
 ## <summary>
